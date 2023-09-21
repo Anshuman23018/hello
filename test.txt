@@ -1,0 +1,57 @@
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <string>
+
+
+using namespace std;
+const int MAX_ROWS = 1000;  // Define the maximum number of rows
+const int NUM_COLS = 4;     // Define the number of columns
+struct Bank {
+    int Serial;
+    int Year;
+    double Rate;
+    double Inflation;
+};
+//
+void actualMoneyReceived(Bank investments[],int numRows,float principal,int Year)
+{
+    float newPrincipal=principal;
+    for(int i=0;i<numRows; ++i) {
+        if (investments[i].Year<=2022)
+        {
+            float netRate=investments[i].Rate-investments[i].Inflation;  // Use Rate and Inflation directly
+            newPrincipal=newPrincipal*(1+(netRate/100));
+        }
+    }
+    cout<<"The Actual money received after "<< 2022-Year<<" years is: "<<newPrincipal<<endl;
+}
+
+void InvestmentValueForYear(Bank investments[], int numRows, float principal,int Year) {
+    float updatedValue=0.0;  // Initialize to a default value
+
+    for(int i=0;i<numRows;++i) {
+                if (investments[i].Year<=2022) {
+            updatedValue=principal*(1+investments[i].Rate/100);
+            break;
+        }
+    }
+
+    if(updatedValue==0.0) {
+        cout<<"No investment data found for the given year."<<endl;
+    } else {
+        cout<<"The investment value for year " <<Year<<" is: "<<updatedValue<<endl;
+    }
+}
+
+
+int main() {
+    ifstream inputFile;
+    inputFile.open("india_data.csv");
+
+
+    actualMoneyReceived(investments,numRows,amount,year);
+
+    InvestmentValueForYear(investments,numRows,amount,year);
+    return 0;
+}
